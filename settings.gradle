@@ -1,0 +1,6 @@
+rootProject.name = 'gradle'
+include 'gradle-core'
+include 'gradle-app'
+include 'gradle-web'
+include 'gradle-spring-boot-web'
+

@@ -1,0 +1,54 @@
+group 'design.uranus'
+version '1.0-SNAPSHOT'
+
+//公共的地方在这里配置
+subprojects {
+    apply plugin: 'java'
+    repositories {
+        maven {
+            url "http://maven.aliyun.com/nexus/content/groups/public"
+        }
+        mavenLocal()
+    }
+    dependencies {
+        testCompile group: 'junit', name: 'junit', version: '4.12'
+    }
+    //设置Java源码的版本为1.8
+    sourceCompatibility = 1.8
+    //配置Gradle生成Java1.8的class文件
+    targetCompatibility = 1.8
+
+    tasks.withType(JavaCompile) {
+        options.encoding = "UTF-8"
+    }
+}
+
+/*创建二进制发布文件
+移除jar任务的配置。
+为项目应用application插件。
+对应用程序的主类进行配置，设置mainClassName属性*//*
+
+apply plugin: 'application'
+mainClassName = 'design.uranus.gradle.HelloGradle'
+
+*/
+/*将许可证文件复制到build目录下
+LICENSE文件包含了我们应用程序的许可信息，可以在项目的根目录下找到它。
+可以通过以下步骤将许可证文件复制到build目录下：
+创建一个新的Copy任务，名为copyLicense。
+使用CopySpec接口中的from()方法配置源文件，将“LICENSE”作为参数调用。
+使用CopySpec接口中into()方法配置target目录，将$buildDir属性作为参数调用。*//*
+
+task copyLicense {
+    outputs.file new File("$buildDir/LICENSE")
+    doLast {
+        copy {
+            from "LICENSE"
+            into "$buildDir"
+        }
+    }
+}
+
+applicationDistribution.from(copyLicense) {
+    into ""
+}*/
